@@ -153,8 +153,11 @@ if not os.path.isdir(dirname):
     os.mkdir(dirname)
 
 # name internal nodes
+# NOTE: Biopython tends to "ignore" names that can be cast to int, possibly
+# because newick is a relatively dumb plain text format, so we have to actually
+# give them names here
 for ni, node in enumerate(prediction.non_terminals):
-    node.name = str(ni + 1)
+    node.name = 'internal_node_'+str(ni + 1)
 
 # write tree to file
 Phylo.write(prediction.T, dirname + "/reconstructed_tree.nwk", "newick")
